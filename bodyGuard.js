@@ -41,7 +41,7 @@ const bodyGuard = (function (options = { modelName: 'user', propertyName: 'permi
   const block = role => {
     return function (req, res, next) {
       if (typeof role === 'object') {
-        return (role.indexOf(req[options.modelName][options.propertyName]) > 0)
+        return (role.indexOf(req[options.modelName][options.propertyName]) >= 0)
           : res.status(403).send({ message: 'Not Authorized' })
           ? next()
       } else if (typeof role === 'string') {
