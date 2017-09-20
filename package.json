@@ -1,0 +1,27 @@
+{
+  "name": "express-colander",
+  "version": "0.1.1",
+  "description": "Simple express authorization middleware",
+  "main": "dist/colander.min.js",
+  "scripts": {
+    "build": "gulp build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mildlypretentious/express-colander.git"
+  },
+  "keywords": [
+    "express.js",
+    "expressjs",
+    "authorization",
+    "middleware",
+    "roles",
+    "permissions"
+  ],
+  "author": "William Carron",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mildlypretentious/express-colander/issues"
+  },
+  "homepage": "https://github.com/mildlypretentious/express-colander#readme"
+}
