@@ -56,4 +56,53 @@ const colander = (function (options = { modelName: 'user', propertyName: 'permis
   return { allow, block }
 })()
 
-module.exports = colander
+
+const defaults = {
+  modelName: 'user',
+  propertyName: 'permissions'
+}
+
+const rejection = {
+  message: 'Not Authorized'
+}
+
+class Colander {
+  constructor (options = defaults) {
+    this.modelName = options.modelName
+    this.propertyName = options.propertyName
+  }
+
+  this.allow (role) {
+    return function (req, res, next) {
+      if (typeof role === 'string') {
+        return (role === req[this.modelName][this.propertyName])
+          ? next()
+          : res.status(403).send(rejection)
+      } else if (typeof role === 'object') {
+        return (role.indexOf(req[this.modelName][this.propertyName]) >= 0)
+          ? next()
+          : res.status(403).send(rejection)
+      } else {
+        res.status(403).send(rejection)j
+      }
+    }
+  }
+
+  this.block (role) {
+    return function (req, res, next) {
+      if (typeof role === 'string') {
+        return (role === req[this.modelName][this.propertyName])
+          ? res.status(403).send(rejection)
+          : next()
+      } else if (typeof role === 'object') {
+        return (role.indexOf(req[this.modelName][this.propertyName]) >= 0)
+          ? res.status(403).send(rejection)
+          : next()
+      } else {
+        return res.status(403).send(rejection)
+      }
+    }
+  }
+}
+
+module.exports = Colander
