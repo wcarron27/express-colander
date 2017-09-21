@@ -32,7 +32,7 @@ const colander = (function (options = { modelName: 'user', propertyName: 'permis
       }
     }
   }
-  
+
   // Allow all but these groups
   /**
    * @func block
