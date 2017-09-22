@@ -1,6 +1,6 @@
 {
   "name": "express-colander",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Simple express authorization middleware",
   "main": "dist/colander.min.js",
   "scripts": {
