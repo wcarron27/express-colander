@@ -41,7 +41,7 @@ const col = new Colander({
 This is designed under the constraints of my own development. As such, it's main focus is to provide easy authorization for Express apps using Passport.js, Mongoose (yeah, I know, MongoDB sucks), and JWT based authentication. If you're interested in using this with other libraries, message me on Github.
 
 ### Usage
-There are two methods, and only two provided by express-colander: `allow` and `block`. Think of them as whitelists and blacklists, respectively.
+There are two, and only two, methods provided by express-colander: `allow` and `block`. Think of them as whitelists and blacklists, respectively. In each, pass either a string or an array of strings as the argument. The methods only take one argument.
 
 #### Allow
 ```
@@ -121,6 +121,7 @@ Things I ask of you:
 2. Test suite
 3. Stricter, official contribution guide
 4. Refactor into cleaner modules
+5. Ability to call as a router-wide middlware: e.g. `router.use(colander())`
 
 #### 2.0.0
 1. Additional drivers/options for configuration
