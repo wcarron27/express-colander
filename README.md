@@ -1,5 +1,6 @@
 # express-colander
 Quick little express middleware for authorization.
+
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
 
@@ -8,13 +9,36 @@ Quick little express middleware for authorization.
 
 ### Dependencies
 [Passport.js](http://passportjs.org)
+
 [Passport-jwt](https://github.com/themikenicholson/passport-jwt)
+
 [Passport-local](https://github.com/jaredhanson/passport-local')
 
-Express-colander relies on the existence of a property attached to the `req` object of an Express.js request.
-It is a role based authorization model, and uses the `req.user` object provided by the passport middlwares above. It currently checks the 'permissions' attribute of the req.user object.
-This is currently not configurable; but configuration is on the way. See the roadmap below for more details.
+Express-colander currently relies on the existence of an object attached to the request like req.body or req.headers. It defaults to `req.user`. Colander then looks for the provided property on that object. It defaults to `permissions`.
 
+So, if you have an object like so:
+```
+req: {
+  user: {
+    username: 'blah',
+    email: 'email@blah.com',
+    password: 'aas12347lkjhk@hlkjhasdjh#ha__09blkjga74',
+    permissions: 'admin'
+  }
+}
+```
+You can just create a new instance of express-colander.
+
+If you use a different request object, you'll need to pass and object to the class instance:
+```
+const Colander = require('express-colander')
+const col = new Colander({
+  modelName: 'account',
+  propertyName: 'roles'
+})
+```
+###### Note:
+This is designed under the constraints of my own development. As such, it's main focus is to provide easy authorization for Express apps using Passport.js, Mongoose (yeah, I know, MongoDB sucks), and JWT based authentication. If you're interested in using this with other libraries, message me on Github.
 
 ### Usage
 There are two methods, and only two provided by express-colander: `allow` and `block`. Think of them as whitelists and blacklists, respectively.
@@ -22,7 +46,8 @@ There are two methods, and only two provided by express-colander: `allow` and `b
 #### Allow
 ```
 const express = require('express')
-const colander = require('express-colander')
+const Colander = require('express-colander')
+const colander = new Colander()
 const app = express()
 
 /* Pass array to colander */
@@ -31,7 +56,9 @@ app.get(
   passport.authenticate('jwt', { session: false}),
   colander.allow(['admin', 'editor']),
   (req, res) => {
+
     // Route logic here
+
   })
 
 /* OR - pass a string */
@@ -40,14 +67,17 @@ app.get(
   passport.authenticate('jwt', { session: false }),
   colander.allow('literallyNobodyEver'),
   (req, res) => {
+
     // Route logic here
+
   })
 ```
 
 #### Block
 ```
 const express = require('express')
-const colander = require('express-colander')
+const Colander = require('express-colander')
+const colander = new Colander()
 const app = express()
 
 /* Block using string */
@@ -56,7 +86,9 @@ app.get(
   passport.authenticate('jwt', { session: false }),
   colander.block('guest'),
   (req, res) => {
+
     // Route logic here
+
   })
 
 /* OR - block an array  */
@@ -65,7 +97,9 @@ app.post(
   passport.authenticate('jwt', { session: false }),
   colander.block(['guest', 'minors', 'parents', 'grandparents', 'anyoneICareAbout']),
   (req, res) => {
+
     // Route logic here
+
   })
 ```
 
