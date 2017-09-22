@@ -40,7 +40,7 @@ class Colander {
           ? next()
           : res.status(403).send(rejection)
       } else {
-        res.status(403).send(rejection)j
+        res.status(403).send(rejection)
       }
     }
   }
