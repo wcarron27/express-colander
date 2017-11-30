@@ -30,7 +30,7 @@ class Colander {
    * @param {string || array} role - Allowed roles
    */
   allow (role) {
-    return function (req, res, next) {
+    return (req, res, next) => {
       if (typeof role === 'string') {
         return (role === req[this.modelName][this.propertyName])
           ? next()
@@ -50,7 +50,7 @@ class Colander {
    * @param {string || array} role - Allowed roles
    */
   block (role) {
-    return function (req, res, next) {
+    return (req, res, next) => {
       if (typeof role === 'string') {
         return (role === req[this.modelName][this.propertyName])
           ? res.status(403).send(rejection)
