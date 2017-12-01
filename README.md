@@ -127,3 +127,6 @@ Things I ask of you:
 1. Additional drivers/options for configuration
 2. More tests
 3. Locked dependency versions
+
+### Change Log
+1. Version 0.1.3 had a bug. `this` was the problem. The bug was fixed in version 0.1.4 (I'm 50% confident in that statement) by changing the returned function into the arrow function format.
